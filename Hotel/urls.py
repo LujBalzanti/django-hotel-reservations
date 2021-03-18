@@ -19,4 +19,5 @@ from django.urls import include, path
 urlpatterns = [
     path('', include('reservations.urls')),
     path('admin/', admin.site.urls),
-]
+    url(r'^filer/', include('filer.urls')),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

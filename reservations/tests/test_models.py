@@ -74,7 +74,7 @@ class TestModels(TestCase):
 
         self.assertRaises(ValidationError, testWrongBooking.full_clean)
 
-    def testCreateBooking_WithReversedDates_ThrowsValidationError(self):
+    def testCreateBooking_EndDateBeforeStartDate_ThrowsValidationError(self):
         testWrongBooking = Booking.objects.create(
             room = self.testRoom,
             checkInDate = datetime.now().date() + timedelta(days=10),

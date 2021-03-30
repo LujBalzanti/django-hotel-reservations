@@ -3,27 +3,32 @@
 
 {% block header %}
 <style>
+
+  @media (min-width: 992px){
     .navbar .nav-link {
-    color: #fff !important;
+      color: #fff;
     }
+    .navbar .nav-item .nav-link {
+      color: #fff;
+    }
+  }
 </style>
 
-<nav class="navbar navbar-expand-lg navbar-dark d-none d-lg-block" style="z-index: 2000;">
+<nav class="navbar navbar-expand-lg" style="z-index: 2000;">
     <div class="container-fluid">
       <a class="navbar-brand nav-link" target="home" href="{% url 'home' %}">
         <strong>Hotel Reservations</strong>
       </a>
-      <a href="{% url 'booking' %}" class="btn btn-dark ms-auto">Book now</a>
-      <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbar"
+      <button class="navbar-toggler btn btn-dark" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbar"
         aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
         <i class="fas fa-bars"></i>
       </button>
       <div class="collapse navbar-collapse" id="navbar">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item">
+          <li class="nav-item ms-auto">
             <a class="nav-link" href="{% url 'rooms' %}">Rooms & Suites</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item ms-auto">
             <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
           </li>
         </ul>
@@ -48,7 +53,7 @@
             <div class="text-white text-center">
               <h1 class="mb-3">Top Class Resorts</h1>
               <a
-                  class="btn btn-outline-light btn-lg m-2"
+                  class="btn btn-primary btn-lg m-2"
                   href="{% url 'booking' %}"
                   role="button"
               >
@@ -66,7 +71,7 @@
             <div class="text-white text-center">
               <h1 class="mb-3">Luxury Rooms</h1>
               <a
-                  class="btn btn-outline-light btn-lg m-2"
+                  class="btn btn-primary btn-lg m-2"
                   href="{% url 'booking' %}"
                   role="button"
               >
@@ -84,7 +89,7 @@
                 <div class="text-white text-center">
                   <h1 class="mb-3">Amazing Service</h1>
                   <a
-                      class="btn btn-outline-light btn-lg m-2"
+                      class="btn btn-primary btn-lg m-2"
                       href="{% url 'booking' %}"
                       role="button"
                   >

@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from reservations.models import *
-from reservations.util import getRandomRoom
 from django.db.models import Max
 
 def home(request):

@@ -53,12 +53,7 @@ class Room(models.Model):
         return str(self.number)
 
 class RoomPicture(models.Model):
-    picture = FilerImageField(
-        null=True, 
-        blank=True, 
-        related_name="picture", 
-        on_delete=models.CASCADE,
-    )
+    picture = models.ImageField(null=True, blank=True, upload_to="roomImages")
     room = models.ForeignKey(Room, related_name="pictured_room", on_delete=models.CASCADE)
 
 class Guest(models.Model):

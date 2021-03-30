@@ -39,14 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_guid',
     'easy_thumbnails',
-    'filer',
     'mptt',
 ]
 
 MIDDLEWARE = [
-    'django_guid.middleware.guid_middleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -79,50 +76,10 @@ THUMBNAIL_HIGH_RESOLUTION = True
 THUMBNAIL_PROCESSORS = (
     'easy_thumbnails.processors.colorspace',
     'easy_thumbnails.processors.autocrop',
-    'filer.thumbnail_processors.scale_and_crop_with_subject_location',
     'easy_thumbnails.processors.filters',
 )
 
-
-FILER_CANONICAL_URL = 'images/'
-
-DJANGO_GUID = {
-    'GUID_HEADER_NAME': 'Correlation-ID',
-    'VALIDATE_GUID': True,
-    'RETURN_HEADER': True,
-    'EXPOSE_HEADER': True,
-    'INTEGRATIONS': [],
-    'IGNORE_URLS': [],
-    'UUID_LENGTH': 32,
-}
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'filters': {
-        'correlation_id': {'()': 'django_guid.log_filters.CorrelationId'},  # <-- Add correlation ID
-    },
-    'formatters': {
-        # Basic log format without django-guid filters
-        'basic_format': {'format': '%(levelname)s %(asctime)s %(name)s - %(message)s'},
-
-        # Format with correlation ID output to the console
-        'correlation_id_format': {'format': '%(levelname)s %(asctime)s [%(correlation_id)s] %(name)s - %(message)s'},
-    },
-    'handlers': {
-        'correlation_id_handler': {
-            'class': 'logging.StreamHandler',
-            'formatter': 'correlation_id_format',
-            # Here we include the filters on the handler - this means our IDs are included in the logger extra data
-            # and *can* be displayed in our log message if specified in the formatter - but it will be
-            # included in the logs whether shown in the message or not.
-            'filters': ['correlation_id'],
-        },
-    }
-}
-
 WSGI_APPLICATION = 'Hotel.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -172,3 +129,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+
+STATISFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

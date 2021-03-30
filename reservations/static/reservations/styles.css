@@ -2,26 +2,38 @@
 .carousel-inner,
 .carousel-item,
 .carousel-item.active {
-height: 100vh;
+    height: 100vh;
 }
 
 .carousel-item:nth-child(1) {
-background-image: url('/static/reservations/home1.jpg');
-background-repeat: no-repeat;
-background-size: cover;
-background-position: center center;
+    background-image: url('/static/reservations/home1.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
 }
 .carousel-item:nth-child(2) {
-background-image: url('/static/reservations/home2.jpg');
-background-repeat: no-repeat;
-background-size: cover;
-background-position: center center;
+    background-image: url('/static/reservations/home2.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
 }
 .carousel-item:nth-child(3) {
-background-image: url('/static/reservations/home3.jpg');
-background-repeat: no-repeat;
-background-size: cover;
-background-position: center center;
+    background-image: url('/static/reservations/home3.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+.carousel-mask{
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.homepage-bg-img {
+    background-image: url('/static/reservations/home4.jpg'); 
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    height: 60vh;
 }
 
 /* Height for devices larger than 576px */

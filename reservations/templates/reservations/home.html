@@ -89,7 +89,7 @@
                 <div class="card">
                   <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
                     <img
-                      src="https://mdbootstrap.com/img/new/standard/nature/111.jpg"
+                      src="{{ room3Img.picture }}"
                       class="img-fluid"
                     />
                     <a href="#!">
@@ -114,78 +114,23 @@
   
           <!--Section: Content-->
           <section class="mb-5">
-            <h4 class="mb-5 text-center"><strong>Facilis consequatur eligendi</strong></h4>
-  
-            <div class="row d-flex justify-content-center">
-              <div class="col-md-6">
-                <form>
-                  <!-- 2 column grid layout with text inputs for the first and last names -->
-                  <div class="row mb-4">
-                    <div class="col">
-                      <div class="form-outline">
-                        <input type="text" id="form3Example1" class="form-control" />
-                        <label class="form-label" for="form3Example1">First name</label>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="form-outline">
-                        <input type="text" id="form3Example2" class="form-control" />
-                        <label class="form-label" for="form3Example2">Last name</label>
-                      </div>
-                    </div>
-                  </div>
-  
-                  <!-- Email input -->
-                  <div class="form-outline mb-4">
-                    <input type="email" id="form3Example3" class="form-control" />
-                    <label class="form-label" for="form3Example3">Email address</label>
-                  </div>
-  
-                  <!-- Password input -->
-                  <div class="form-outline mb-4">
-                    <input type="password" id="form3Example4" class="form-control" />
-                    <label class="form-label" for="form3Example4">Password</label>
-                  </div>
-  
-                  <!-- Checkbox -->
-                  <div class="form-check d-flex justify-content-center mb-4">
-                    <input
-                      class="form-check-input me-2"
-                      type="checkbox"
-                      value=""
-                      id="form2Example3"
-                      checked
-                    />
-                    <label class="form-check-label" for="form2Example3">
-                      Subscribe to our newsletter
-                    </label>
-                  </div>
-  
-                  <!-- Submit button -->
-                  <button type="submit" class="btn btn-primary btn-block mb-4">
-                    Sign up
-                  </button>
-  
-                  <!-- Register buttons -->
+            <div class="bg-image homepage-bg-img">
+              <div class="mask carousel-mask">
+                <div class="d-flex justify-content-center align-items-center h-50">
                   <div class="text-center">
-                    <p>or sign up with:</p>
-                    <button type="button" class="btn btn-primary btn-floating mx-1">
-                      <i class="fab fa-facebook-f"></i>
-                    </button>
-  
-                    <button type="button" class="btn btn-primary btn-floating mx-1">
-                      <i class="fab fa-google"></i>
-                    </button>
-  
-                    <button type="button" class="btn btn-primary btn-floating mx-1">
-                      <i class="fab fa-twitter"></i>
-                    </button>
-  
-                    <button type="button" class="btn btn-primary btn-floating mx-1">
-                      <i class="fab fa-github"></i>
-                    </button>
+                    <h1 class="mb-3 text-white">Example Header</h1>
+                    <p class="mb-3 text-white"> A paragraph example bellow the header! </p>
                   </div>
-                </form>
+                </div>
+                <div class="d-flex justify-content-center">
+                  <a
+                    class="btn btn-outline-light btn-lg m-2"
+                    href="booking/"
+                    role="button"
+                    target="_blank"
+                    >Book Now
+                  </a>
+                </div>
               </div>
             </div>
           </section>

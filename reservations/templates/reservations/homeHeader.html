@@ -10,10 +10,10 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark d-none d-lg-block" style="z-index: 2000;">
     <div class="container-fluid">
-      <a class="navbar-brand nav-link" target="" href="">
+      <a class="navbar-brand nav-link" target="home" href="{% url 'home' %}">
         <strong>Hotel Reservations</strong>
       </a>
-      <button type="button" class="btn btn-dark ms-auto">Book now</button>
+      <a href="{% url 'booking' %}" class="btn btn-dark ms-auto">Book now</a>
       <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbar"
         aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
         <i class="fas fa-bars"></i>
@@ -21,10 +21,10 @@
       <div class="collapse navbar-collapse" id="navbar">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href="">Placeholder</a>
+            <a class="nav-link" href="{% url 'rooms' %}">Rooms & Suites</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="">Placeholder</a>
+            <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
           </li>
         </ul>
       </div>
@@ -49,10 +49,8 @@
               <h1 class="mb-3">Top Class Resorts</h1>
               <a
                   class="btn btn-outline-light btn-lg m-2"
-                  href=""
+                  href="{% url 'booking' %}"
                   role="button"
-                  rel="nofollow"
-                  target="_blank"
               >
                   Book Now
               </a>
@@ -69,10 +67,8 @@
               <h1 class="mb-3">Luxury Rooms</h1>
               <a
                   class="btn btn-outline-light btn-lg m-2"
-                  href=""
+                  href="{% url 'booking' %}"
                   role="button"
-                  rel="nofollow"
-                  target="_blank"
               >
                   Book Now
               </a>
@@ -89,9 +85,8 @@
                   <h1 class="mb-3">Amazing Service</h1>
                   <a
                       class="btn btn-outline-light btn-lg m-2"
-                      href="booking/"
+                      href="{% url 'booking' %}"
                       role="button"
-                      target="_blank"
                   >
                       Book Now
                   </a>

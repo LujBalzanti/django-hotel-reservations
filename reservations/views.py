@@ -31,3 +31,9 @@ def room(request, id):
 
 def booking(request):
     return render(request, "reservations/booking.html")
+
+def contact(request):
+    return render(request, "reservations/contact.html")
+
+def rooms(request):
+    return render(request, "reservations/rooms.html")

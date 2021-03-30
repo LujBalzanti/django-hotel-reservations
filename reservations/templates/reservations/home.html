@@ -1,4 +1,5 @@
 {% extends 'reservations/homeHeader.html' %}
+{% load static %}
 
 {% block body %} 
       <!--Main layout-->
@@ -9,21 +10,21 @@
             <div class="row">
               <div class="col-md-6 gx-5 mb-4">
                 <div class="bg-image hover-overlay ripple shadow-2-strong" data-mdb-ripple-color="light">
-                  <img src="https://mdbootstrap.com/img/new/slides/031.jpg" class="img-fluid" />
-                  <a href="#!">
+                  <img src="{% static 'reservations/home5.jpg' %}" class="img-fluid" />
+                  <a href="">
                     <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
                   </a>
                 </div>
               </div>
   
               <div class="col-md-6 gx-5 mb-4">
-                <h4><strong>Facilis consequatur eligendi</strong></h4>
+                <h4><strong>EXPERIENCE THE HOTEL</strong></h4>
                 <p class="text-muted">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis consequatur
-                  eligendi quisquam doloremque vero ex debitis veritatis placeat unde animi laborum
-                  sapiente illo possimus, commodi dignissimos obcaecati illum maiores corporis.
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod itaque voluptate
+                  nesciunt laborum incidunt. Officia, quam consectetur. Earum eligendi aliquam illum
+                  alias, unde optio accusantium soluta, iusto molestiae adipisci et?
                 </p>
-                <p><strong>Doloremque vero ex debitis veritatis?</strong></p>
+                <p><strong>Interested in more?</strong></p>
                 <p class="text-muted">
                   Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod itaque voluptate
                   nesciunt laborum incidunt. Officia, quam consectetur. Earum eligendi aliquam illum
@@ -38,72 +39,69 @@
   
           <!--Section: Content-->
           <section class="text-center">
-            <h4 class="mb-5"><strong>Facilis consequatur eligendi</strong></h4>
+            <h4 class="mb-5"><strong>Popular Rooms</strong></h4>
   
             <div class="row">
               <div class="col-lg-4 col-md-12 mb-4">
-                <div class="card">
+                <div class="card h-100">
                   <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
                     <img
-                      src="https://mdbootstrap.com/img/new/standard/nature/184.jpg"
+                      src="{% if room1Img %} {{ room1Img.picture.url }} {% else %} {% static 'reservations/placeholderRoom.jpg' %} {% endif %}"
                       class="img-fluid"
                     />
-                    <a href="#!">
+                    <a href="{% url 'room' id=room1.id %}">
                       <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
                     </a>
                   </div>
                   <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
+                    <h4 class="card-title">{{ room1.type.type }} Room</h4>
                     <p class="card-text">
-                      Some quick example text to build on the card title and make up the bulk of the
-                      card's content.
+                      The perfect summer getaway that will stay with you forever
                     </p>
-                    <a href="#!" class="btn btn-primary">Button</a>
                   </div>
+                  <a href="{% url 'room' id=room1.id %}" class="btn btn-primary homepage-card-button">Book this room</a>
                 </div>
               </div>
   
               <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card">
+                <div class="card h-100">
                   <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
                     <img
-                      src="https://mdbootstrap.com/img/new/standard/nature/023.jpg"
+                      src="{% if room2Img %} {{ room2Img.picture.url }} {% else %} {% static 'reservations/placeholderRoom.jpg' %} {% endif %}"
                       class="img-fluid"
                     />
-                    <a href="#!">
+                    <a href="{% url 'room' id=room2.id %}">
                       <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
                     </a>
                   </div>
                   <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
+                    <h4 class="card-title">{{ room2.type.type }} Room</h4>
                     <p class="card-text">
-                      Some quick example text to build on the card title and make up the bulk of the
-                      card's content.
+                      Each space has it's own style. Hand crafted to appeal to you
                     </p>
-                    <a href="#!" class="btn btn-primary">Button</a>
                   </div>
+                  <a href="{% url 'room' id=room2.id %}" class="btn btn-primary homepage-card-button">Book this room</a>
                 </div>
               </div>
   
               <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card">
+                <div class="card h-100">
                   <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
                     <img
-                      src="{{ room1Img.picture.url }}"
+                      src="{% if room3Img %} {{ room3Img.picture.url }} {% else %} {% static 'reservations/placeholderRoom.jpg' %} {% endif %}"
                       class="img-fluid"
                     />
-                    <a href="#!">
+                    <a href="{% url 'room' id=room3.id %}">
                       <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
                     </a>
                   </div>
                   <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
+                    <h4 class="card-title">{{ room3.type.type }} Room</h4>
                     <p class="card-text">
-                      Some quick example text to build on the card title and make up the bulk of the
-                      card's content.
+                      Sublime moments spent in front of the sea
                     </p>
-                    <a href="#!" class="btn btn-primary">Button</a>
                   </div>
+                  <a href="{% url 'room' id=room3.id %}" class="btn btn-primary homepage-card-button">Book this room</a>
                 </div>
               </div>
             </div>

@@ -6,19 +6,19 @@
 }
 
 .carousel-item:nth-child(1) {
-    background-image: url('/static/reservations/home1.jpg');
+    background-image: url('home1.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
 }
 .carousel-item:nth-child(2) {
-    background-image: url('/static/reservations/home2.jpg');
+    background-image: url('home2.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
 }
 .carousel-item:nth-child(3) {
-    background-image: url('/static/reservations/home3.jpg');
+    background-image: url('home3.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
@@ -29,7 +29,7 @@
 }
 
 .homepage-bg-img {
-    background-image: url('/static/reservations/home4.jpg'); 
+    background-image: url('home4.jpg'); 
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
@@ -51,4 +51,10 @@
 
 .navbar .nav-link {
 color: #000 !important;
+}
+
+.homepage-card-button{
+    width: fit-content;
+    align-self: center;
+    margin-bottom: 20px;
 }

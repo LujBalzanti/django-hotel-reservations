@@ -1,8 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 from reservations.models import *
 from django.db.models import Max
 from reservations.util import get3RandomRoomIds
+from django.core.paginator import Paginator
+from reservations.filters import RoomTypeFilter
 
 def home(request):
     room_ids = get3RandomRoomIds(Room)
@@ -29,4 +30,22 @@ def contact(request):
     return render(request, "reservations/contact.html")
 
 def rooms(request):
-    return render(request, "reservations/rooms.html")
+    roomList = Room.objects.all()
+    filteredRooms = RoomTypeFilter(request.GET, queryset=roomList)
+    roomList = filteredRooms.qs
+
+    paginator = Paginator(roomList, 6)
+    page = request.GET.get('page', 1)
+
+    try:
+        rooms = paginator.page(page)
+    except PageNotAnInteger:
+        rooms = paginator.page(1)
+    except EmptyPage:
+        rooms = paginator.page(paginator.num_pages)
+
+    return render(request, "reservations/rooms.html", {
+        'rooms': rooms,
+        'paginator': paginator,
+        'filter': filteredRooms
+    })

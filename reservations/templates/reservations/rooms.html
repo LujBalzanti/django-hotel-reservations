@@ -1,5 +1,66 @@
 {% extends "reservations/header.html" %}
+{% load static %}
 
 {% block body %}
-    This is rooms.html
+    <section class="text-center">
+        <div class="container justify-content-center">
+            <h2 class="mt-3 mb-5"><strong>Rooms</strong></h2>
+            <div class="container">
+                <form method="get" class="mb-3">
+                    {{ filter.form.as_p }}
+                    <button class="btn btn-primary" type="submit">Filter</button>
+                </form>
+            </div>
+            <div class="row justify-content-center">
+                {% for room in rooms %}
+                    <div class="col-lg-4 col-11 mb-4">
+                        <div class="card h-100">
+                        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                            <img
+                                src="{% if room.pictured_room.first %} {{ room.pictured_room.first.picture.url }} {% else %} {% static 'reservations/placeholderRoom.jpg' %} {% endif %}"
+                                class="img-fluid"
+                            />
+                            <a href="{% url 'room' id=room.id %}">
+                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title">{{ room.type.type }} Room</h4>
+                            <ul class="card-text list-inline">
+                                <li class="list-inline-item pe-3 border-end">Facing {{ room.get_cardinalLocation_display }}</li>
+                                <li class="list-inline-item pe-3 border-end">On floor {{ room.floor }}</li>
+                                <li class="list-inline-item">Currently {{ room.get_status_display }}</li>
+                            </ul>
+                        </div>
+                        <a href="{% url 'room' id=room.id %}" class="btn btn-outline-primary homepage-card-button">Book this room</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="row justify-content-center">
+                {% if rooms.has_other_pages %}
+                    <div class="pagination col-4 justify-content-center mb-3">
+                        {% if rooms.has_previous %}
+                            <li><a href="?page={{ rooms.previous_page_number }}">&laquo;</a></li>
+                        {% else %}
+                            <li class="disabled"><span>&laquo;</span></li>
+                        {% endif %}
+                        {% for i in rooms.paginator.page_range %}
+                        {% if rooms.number == i %}
+                            <li class="active"><span>{{ i }} <span class="sr-only">(current)
+                        </span></span></li>
+                        {% else %}
+                            <li><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                        {% endfor %}
+                        {% if rooms.has_next %}
+                            <li><a href="?page={{ rooms.next_page_number }}">&raquo;</a></li>
+                        {% else %}
+                            <li class="disabled"><span>&raquo;</span></li>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
 {% endblock %}

@@ -1,4 +1,5 @@
 from django.urls import path
+from django.conf.urls import url
 
 from . import views
 
@@ -7,5 +8,5 @@ urlpatterns = [
     path("room/<int:id>", views.room, name="room"),
     path('booking/', views.booking, name='booking'),
     path('contact/', views.contact, name='contact'),
-    path('rooms/', views.rooms, name='rooms'),
+    url(r'^rooms/$', views.rooms, name='rooms'),
 ]

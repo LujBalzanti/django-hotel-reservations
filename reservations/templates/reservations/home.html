@@ -46,7 +46,7 @@
                 <div class="card h-100">
                   <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
                     <img
-                      src="{% if room1Img %} {{ room1Img.picture.url }} {% else %} {% static 'reservations/placeholderRoom.jpg' %} {% endif %}"
+                      src="{% if room1.pictured_room.first %} {{ room1.pictured_room.first.picture.url }} {% else %} {% static 'reservations/placeholderRoom.jpg' %} {% endif %}"
                       class="img-fluid"
                     />
                     <a href="{% url 'room' id=room1.id %}">
@@ -67,7 +67,7 @@
                 <div class="card h-100">
                   <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
                     <img
-                      src="{% if room2Img %} {{ room2Img.picture.url }} {% else %} {% static 'reservations/placeholderRoom.jpg' %} {% endif %}"
+                      src="{% if room2.pictured_room.first %} {{ room2.pictured_room.first.picture.url }} {% else %} {% static 'reservations/placeholderRoom.jpg' %} {% endif %}"
                       class="img-fluid"
                     />
                     <a href="{% url 'room' id=room2.id %}">
@@ -88,7 +88,7 @@
                 <div class="card h-100">
                   <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
                     <img
-                      src="{% if room3Img %} {{ room3Img.picture.url }} {% else %} {% static 'reservations/placeholderRoom.jpg' %} {% endif %}"
+                      src="{% if room3.pictured_room.first %} {{ room3.pictured_room.first.picture.url }} {% else %} {% static 'reservations/placeholderRoom.jpg' %} {% endif %}"
                       class="img-fluid"
                     />
                     <a href="{% url 'room' id=room3.id %}">

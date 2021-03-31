@@ -72,3 +72,7 @@ body{
 footer{
     margin-top:auto; 
 }
+
+.bg-footer {
+    background-color: #ECEFF1;
+}

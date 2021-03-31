@@ -1,5 +1,75 @@
 {% extends "reservations/header.html" %}
+{% load static %}
 
 {% block body %}
-    This is contact.html
+<main class="mt-5">
+    <section>
+        <div class="container">
+            <div class="row justify-content-lg-between justify-content-center">
+                <div class="col-8 col-mb-5 col-lg-6">
+                    <div class="mb-5">
+                        <h3>About our Hotel</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod itaque voluptate
+                            nesciunt laborum incidunt. Officia, quam consectetur. Earum eligendi aliquam illum
+                            alias, unde optio accusantium soluta, iusto molestiae adipisci et?</p>
+                    </div>
+                    <div>
+                        <h3 class="mb-4">Contact us here</h3>
+                        <div class="mb-4">
+                            <i class="icon fas fa fa-phone fa-flip-horizontal"></i> TELEPHONE<br>
+                            <ul class="list-unstyled">
+                                <li>
+                                    <a href="tel:+44 7777 777 777">+44 7777 777 777</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div> 
+                            <i class="icon fas fa fa-envelope"></i> EMAIL<br>
+                            <ul class="list-unstyled">
+                                <li>
+                                    <a href="mailto:example@email.com">example@email.com</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-8 col-mb-6 col-lg-4">
+                    <div class="card mb-3">
+                        <img
+                          src="{% static 'reservations/contact.png' %}"
+                          class="card-img-top"
+                          alt="map"
+                        />
+                    </div>
+                    <div> 
+                        <i class="icon fas fa fa-map-marker-alt"></i> ADDRESS<br> 
+                        Example Street #, City, Country.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <hr class="my-5" />
+    <section class="mb-5">
+        <div class="bg-image homepage-bg-img">
+          <div class="mask carousel-mask">
+            <div class="d-flex justify-content-center align-items-center h-50">
+              <div class="text-center">
+                <h1 class="mb-3 text-white">Example Header</h1>
+                <p class="mb-3 text-white"> A paragraph example bellow the header! </p>
+              </div>
+            </div>
+            <div class="d-flex justify-content-center">
+              <a
+                class="btn btn-primary btn-lg m-2"
+                href="booking/"
+                role="button"
+                target="_blank"
+                >Book Now
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+</main>
 {% endblock %}

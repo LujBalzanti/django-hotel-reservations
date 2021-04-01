@@ -4,6 +4,7 @@ from django.db.models import Max
 from reservations.util import get3RandomRoomIds
 from django.core.paginator import Paginator
 from reservations.filters import RoomTypeFilter
+from reservations.forms import *
 
 def home(request):
     room_ids = get3RandomRoomIds(Room)
@@ -19,8 +20,14 @@ def home(request):
     })
 
 def room(request, id):
-    return render(request, "reservations/room.html", {
+    room = Room.objects.get(id=id)
+    guestForm = GuestForm()
+    bookingForm = BookingForm()
 
+    return render(request, "reservations/room.html", {
+        "room": room,
+        "guestForm": guestForm,
+        "bookingForm": bookingForm
     })
 
 def booking(request):
@@ -49,3 +56,6 @@ def rooms(request):
         'paginator': paginator,
         'filter': filteredRooms
     })
+
+def roomBooking(request, id):
+    return render(request, 'reservations/home.html')

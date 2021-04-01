@@ -44,6 +44,21 @@
     height: 70vh;
 }
 
+.placeholder-bg-img {
+    background-image: url('placeholderRoom.jpg'); 
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    height: 60vh;
+}
+
+.carousel-item-room {
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
 /* Height for devices larger than 576px */
 @media (min-width: 992px) {
     #introCarousel {

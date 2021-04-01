@@ -1,6 +1,7 @@
 from django.forms import ModelForm
 from django import forms
 from reservations.models import Guest, Booking, Room
+from django.contrib.admin.widgets import AdminDateWidget
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -15,7 +16,10 @@ class GuestForm(ModelForm):
             'description': _('Description')
         }
         widgets = {
-            'description': forms.Textarea(attrs={'cols': 80, 'rows': 20})
+            'description': forms.Textarea(attrs={'cols': 40, 'rows': 5, "class": "form-control w-75"}),
+            'number': forms.NumberInput(attrs={'class': 'form-control w-25'}),
+            'firstName': forms.NumberInput(attrs={'class': 'form-control w-50'}),
+            'lastName': forms.NumberInput(attrs={'class': 'form-control w-50'})
         }
         error_messages = {
             'firstName': {
@@ -33,3 +37,7 @@ class BookingForm(ModelForm):
     class Meta:
         model = Booking
         fields = ["checkInDate", "checkOutDate"]
+        widgets = {
+            'checkInDate': forms.SelectDateWidget(attrs={}),
+            'checkOutDate': forms.SelectDateWidget(attrs={})
+        }        

@@ -1,5 +1,43 @@
 {% extends "reservations/header.html" %}
 
 {% block body %}
-    This is room.html
+    <section class="mb-5 mt-4">
+        <div class="container">
+            <div class="row">
+                <div class="d-flex justify-content-center">
+                    <h3><strong>{{ room.type.type }} Room {{ room.number }}</strong></h3>
+                </div>
+                <div class="d-flex justify-content-center mb-2">
+                    <ul class="card-text list-inline">
+                        <li class="list-inline-item pe-3 border-end">Facing {{ room.get_cardinalLocation_display }}</li>
+                        <li class="list-inline-item pe-3 border-end">On floor {{ room.floor }}</li>
+                        <li class="list-inline-item">Currently {{ room.get_status_display }}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row row-cols-3 justify-content-center">
+                {% if room.pictured_room.first %}
+                    {% for picture in room.pictured_room.all %}
+                        <div class="bg-image mb-3">
+                            <img src="{{ picture.picture.url }}" class="img-fluid rounded" />
+                        </div>
+                    {% endfor %}        
+                {% else %}
+                    <div class="bg-image placeholder-bg-img">
+                        <div class="mask carousel-mask">   
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="d-flex justify-content-center">
+                <form method="POST" action="{% url 'roomBooking' id=room.id %}">
+                    {{ guestForm.as_p }}
+                    {{ bookingForm.as_p }}
+                    {% csrf_token %}
+                    <input type="hidden" name="_method" value="postComment">
+                    <button type="submit" class="btn btn-primary mb-2">Book This Room</button>        
+                </form>
+            </div>
+        </div>
+    </section>
 {% endblock %}

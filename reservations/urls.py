@@ -9,4 +9,5 @@ urlpatterns = [
     path('booking/', views.booking, name='booking'),
     path('contact/', views.contact, name='contact'),
     url(r'^rooms/$', views.rooms, name='rooms'),
+    path('booking/room/<int:id>', views.roomBooking, name="roomBooking"),
 ]

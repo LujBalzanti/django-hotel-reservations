@@ -36,6 +36,14 @@
     height: 60vh;
 }
 
+.team-bg-img {
+    background-image: url('contactTeam.jpg'); 
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    height: 70vh;
+}
+
 /* Height for devices larger than 576px */
 @media (min-width: 992px) {
     #introCarousel {

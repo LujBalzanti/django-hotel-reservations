@@ -5,10 +5,9 @@
     <section class="text-center">
         <div class="container justify-content-center">
             <h2 class="mt-3 mb-5"><strong>Rooms</strong></h2>
-            <div class="container">
-                <form method="get" class="mb-3">
+            <div class="d-flex justify-content-end">
+                <form method="get" id="filterForm">
                     {{ filter.form.as_p }}
-                    <button class="btn btn-primary" type="submit">Filter</button>
                 </form>
             </div>
             <div class="row justify-content-center">
@@ -63,4 +62,11 @@
             </div>
         </div>
     </section>
+
+    <script>
+        let filterForm = document.getElementById("filterForm");
+        let filterFormSelect = filterForm.childNodes[1].childNodes[2];
+
+        filterFormSelect.onchange = function(){filterForm.submit()};
+    </script>
 {% endblock %}

@@ -79,9 +79,9 @@ class Booking(models.Model):
     )
 
     def clean(self, *args, **kwargs):
-        if self.checkInDate > self.checkOutDate:
+        if self.checkInDate >= self.checkOutDate:
             raise ValidationError(
-                "Check out date cannot be before check in date"
+                "You must book the room for a minimum of 1 day"
             )
 
         if self.checkInDate < datetime.now().date():
@@ -93,6 +93,4 @@ class Booking(models.Model):
 
         for booking in bookings:
             if booking.checkInDate < self.checkOutDate and booking.checkOutDate > self.checkInDate:
-                raise ValidationError(
-                    "The room is already booked within that timeframe"
-                )
+                raise ValidationError(_("The room is already booked within that timeframe"))

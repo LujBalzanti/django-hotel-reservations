@@ -2,7 +2,7 @@ from django.shortcuts import render
 from reservations.models import *
 from django.db.models import Max
 from datetime import datetime
-from reservations.util import get3RandomRoomIds, getDateRangeByDay
+from reservations.util import get3RandomRoomIds, getDateRangeByDay, checkRoomStatus
 from django.core.paginator import Paginator
 from reservations.filters import RoomTypeFilter
 from reservations.forms import *
@@ -36,9 +36,9 @@ def room(request, id):
                 newBooking.room = room
                 try:
                     newBooking.clean()
-                except:
+                except Exception as error:
                     return render(request, "reservations/error.html", {
-                        "error": "Validation Error: Something has gone wrong with the booking. Please ensure that the reservation dates are not overlapping."
+                        "error": error.message
                 })
 
                 newGuest = newGuestForm.save() 
@@ -51,6 +51,7 @@ def room(request, id):
                 for booking in bookings:
                     for date in getDateRangeByDay(booking.checkInDate, booking.checkOutDate):
                         reservedDates.append(date)   
+                checkRoomStatus(room, Booking)
                 return render(request, "reservations/room.html", {
                     "room": room,
                     "guestForm": guestForm,
@@ -74,6 +75,7 @@ def room(request, id):
                 reservedDates.append(date)   
         guestForm = GuestForm()
         bookingForm = BookingForm()
+        checkRoomStatus(room, Booking)
         return render(request, "reservations/room.html", {
             "room": room,
             "guestForm": guestForm,
@@ -88,7 +90,9 @@ def contact(request):
     return render(request, "reservations/contact.html")
 
 def rooms(request):
-    roomList = Room.objects.all()
+    roomList = Room.objects.all().exclude(status="MTC")
+    for room in roomList:
+        checkRoomStatus(room, Booking)
     filteredRooms = RoomTypeFilter(request.GET, queryset=roomList)
     roomList = filteredRooms.qs
 

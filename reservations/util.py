@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.db.models import Max
 from django.db.models.deletion import SET_NULL, PROTECT
 import random
@@ -21,3 +21,8 @@ def get3RandomRoomIds(Room):
                 room_ids.append(key)
 
     return room_ids
+
+def getDateRangeByDay(startDate, endDate):
+    while startDate <= endDate:
+        yield startDate.strftime('%Y-%m-%d')
+        startDate += timedelta(days=1)

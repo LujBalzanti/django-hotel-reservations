@@ -4,7 +4,6 @@ from reservations.models import Guest, Booking, Room
 from django.contrib.admin.widgets import AdminDateWidget
 from django.utils.translation import ugettext_lazy as _
 
-
 class GuestForm(ModelForm):
     class Meta:
         model = Guest
@@ -13,13 +12,13 @@ class GuestForm(ModelForm):
             'number': _('Number of Guests'),
             'firstName': _('First Name'),
             'lastName': _('Last Name'),
-            'description': _('Description')
+            'description': _('Notes')
         }
         widgets = {
             'description': forms.Textarea(attrs={'cols': 40, 'rows': 5, "class": "form-control w-75"}),
             'number': forms.NumberInput(attrs={'class': 'form-control w-25'}),
-            'firstName': forms.NumberInput(attrs={'class': 'form-control w-50'}),
-            'lastName': forms.NumberInput(attrs={'class': 'form-control w-50'})
+            'firstName': forms.TextInput(attrs={'class': 'form-control w-50'}),
+            'lastName': forms.TextInput(attrs={'class': 'form-control w-50'})
         }
         error_messages = {
             'firstName': {
@@ -38,6 +37,6 @@ class BookingForm(ModelForm):
         model = Booking
         fields = ["checkInDate", "checkOutDate"]
         widgets = {
-            'checkInDate': forms.SelectDateWidget(attrs={}),
-            'checkOutDate': forms.SelectDateWidget(attrs={})
+            'checkInDate': forms.DateInput(attrs={'class': 'datepicker'}),
+            'checkOutDate': forms.DateInput(attrs={'class': 'datepicker'})
         }        

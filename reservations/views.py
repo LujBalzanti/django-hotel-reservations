@@ -1,10 +1,13 @@
 from django.shortcuts import render
 from reservations.models import *
 from django.db.models import Max
-from reservations.util import get3RandomRoomIds
+from datetime import datetime
+from reservations.util import get3RandomRoomIds, getDateRangeByDay
 from django.core.paginator import Paginator
 from reservations.filters import RoomTypeFilter
 from reservations.forms import *
+import json
+from django.core import serializers
 
 def home(request):
     room_ids = get3RandomRoomIds(Room)
@@ -21,14 +24,62 @@ def home(request):
 
 def room(request, id):
     room = Room.objects.get(id=id)
-    guestForm = GuestForm()
-    bookingForm = BookingForm()
+    bookings = Booking.objects.filter(checkOutDate__gt=datetime.now().date(), room=room)
+    
+    if request.method == "POST":
+        newGuestForm = GuestForm(data=request.POST)
+        if newGuestForm.is_valid():           
+            newBookingForm = BookingForm(data=request.POST)
 
-    return render(request, "reservations/room.html", {
-        "room": room,
-        "guestForm": guestForm,
-        "bookingForm": bookingForm
-    })
+            if newBookingForm.is_valid():
+                newBooking = newBookingForm.save(commit=False)
+                newBooking.room = room
+                try:
+                    newBooking.clean()
+                except:
+                    return render(request, "reservations/error.html", {
+                        "error": "Validation Error: Something has gone wrong with the booking. Please ensure that the reservation dates are not overlapping."
+                })
+
+                newGuest = newGuestForm.save() 
+                newBooking.guests = newGuest
+                newBooking.save()
+
+                guestForm = GuestForm()
+                bookingForm = BookingForm()
+                reservedDates = []
+                for booking in bookings:
+                    for date in getDateRangeByDay(booking.checkInDate, booking.checkOutDate):
+                        reservedDates.append(date)   
+                return render(request, "reservations/room.html", {
+                    "room": room,
+                    "guestForm": guestForm,
+                    "bookingForm": bookingForm,
+                    "reservedDates": reservedDates,
+                    "justBooked": True
+                })                
+            else:
+                return render(request, "reservations/error.html", {
+                    "error": "Something has gone wrong with the booking. Please ensure that the reservation dates are correct."
+                })
+        else:
+            return render(request, "reservations/error.html", {
+                "error": "Something has gone wrong with the booking. Please ensure that the guest information is correct."
+            })
+        
+    else:
+        reservedDates = []
+        for booking in bookings:
+            for date in getDateRangeByDay(booking.checkInDate, booking.checkOutDate):
+                reservedDates.append(date)   
+        guestForm = GuestForm()
+        bookingForm = BookingForm()
+        return render(request, "reservations/room.html", {
+            "room": room,
+            "guestForm": guestForm,
+            "bookingForm": bookingForm,
+            "reservedDates": reservedDates,
+        })
 
 def booking(request):
     return render(request, "reservations/booking.html")
@@ -56,6 +107,3 @@ def rooms(request):
         'paginator': paginator,
         'filter': filteredRooms
     })
-
-def roomBooking(request, id):
-    return render(request, 'reservations/home.html')

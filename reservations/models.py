@@ -74,6 +74,7 @@ class Booking(models.Model):
     guests = models.ForeignKey(
         Guest,
         related_name="booked_guests",
+        null=True,
         on_delete=models.PROTECT,
     )
 

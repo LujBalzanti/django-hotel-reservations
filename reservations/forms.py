@@ -37,8 +37,8 @@ class BookingForm(ModelForm):
         model = Booking
         fields = ["checkInDate", "checkOutDate"]
         widgets = {
-            'checkInDate': forms.DateInput(attrs={'class': 'datepicker form-control w-25'}),
-            'checkOutDate': forms.DateInput(attrs={'class': 'datepicker form-control w-25 mb-3'})
+            'checkInDate': forms.DateInput(attrs={'class': 'datepicker form-control w-50'}),
+            'checkOutDate': forms.DateInput(attrs={'class': 'datepicker form-control w-50 mb-3'})
         }
         labels = {
             'checkInDate': _('Check-in date'),

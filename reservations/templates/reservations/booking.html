@@ -1,5 +1,53 @@
 {% extends "reservations/header.html" %}
+{% load static %}
 
 {% block body %}
-    This is booking.html
+    {% if justBooked %}
+        <script>
+            function alertUser(msg) {
+            alert(msg);
+            }
+        </script>
+        <body onload="alertUser('You have succesfully booked a room')">
+        </body>
+    {% endif %}
+
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            initDatepicker();
+        });
+
+        function initDatepicker(){
+            var disabledDates = [];
+            {% for date in reservedDates %}
+                disabledDates.push("{{ date }}");
+            {% endfor %}
+            $('.datepicker').datepicker({
+                minDate: 0,
+                beforeShowDay: function(date){
+                    var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+                    return [$.inArray(string, disabledDates) == -1];
+                }
+            })
+        }
+    </script>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center text-center mb-3">
+            <h1>Book a Room</h1>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center mb-4">
+        <form method="POST" action="{% url 'booking' %}">
+            {{ roomTypeForm.as_p }}
+            {{ bookingForm.as_p }}
+            {{ guestForm.as_p }}
+            {% csrf_token %}
+            <input type="hidden">
+            <button type="submit" class="btn btn-primary mb-2">Book A Room</button>        
+        </form>
+    </div>
 {% endblock %}

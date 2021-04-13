@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from reservations.models import Guest, Booking, Room
+from reservations.models import Guest, Booking, Room, RoomType
 from django.contrib.admin.widgets import AdminDateWidget
 from django.utils.translation import ugettext_lazy as _
 
@@ -37,6 +37,19 @@ class BookingForm(ModelForm):
         model = Booking
         fields = ["checkInDate", "checkOutDate"]
         widgets = {
-            'checkInDate': forms.DateInput(attrs={'class': 'datepicker'}),
-            'checkOutDate': forms.DateInput(attrs={'class': 'datepicker'})
+            'checkInDate': forms.DateInput(attrs={'class': 'datepicker form-control w-25'}),
+            'checkOutDate': forms.DateInput(attrs={'class': 'datepicker form-control w-25 mb-3'})
+        }
+        labels = {
+            'checkInDate': _('Check-in date'),
+            'checkOutDate': _('Check-out date'),
         }        
+
+class RoomTypeForm(ModelForm):
+    type = forms.ModelChoiceField(queryset=RoomType.objects.all(), widget=forms.Select(attrs={'class': 'datepicker form-control form-select w-50'}))
+    class Meta:
+        model = RoomType
+        fields = ["type"]
+        labels = {
+            'type': _('Room type'),
+        }  

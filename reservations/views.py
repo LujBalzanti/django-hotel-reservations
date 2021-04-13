@@ -84,7 +84,75 @@ def room(request, id):
         })
 
 def booking(request):
-    return render(request, "reservations/booking.html")
+    guestForm = GuestForm()
+    bookingForm = BookingForm()
+    roomTypeForm = RoomTypeForm()
+
+    if request.method == "POST":
+        newRoomTypeForm = RoomTypeForm(data=request.POST)
+
+        if newRoomTypeForm.is_valid():
+            newGuestForm = GuestForm(data=request.POST)
+
+            if newGuestForm.is_valid():           
+                newBookingForm = BookingForm(data=request.POST)
+
+                if newBookingForm.is_valid():
+                    newBooking = newBookingForm.save(commit=False)
+                    roomList = Room.objects.filter(type=newRoomTypeForm.cleaned_data.get('type')).exclude(status="MTC")
+                    dateAvailable = False 
+
+                    for room in roomList:
+                        checkRoomStatus(room, Booking)
+                    availableRooms = roomList.filter(status="AVL")
+
+                    for room in availableRooms:
+                        newBooking.room = room
+                        try:
+                            newBooking.clean()
+                            dateAvailable = True
+                            break
+                        except:
+                            pass
+                    if dateAvailable:
+                        newGuest = newGuestForm.save() 
+                        newBooking.guests = newGuest
+                        newBooking.save()
+
+                        guestForm = GuestForm()
+                        bookingForm = BookingForm()
+                        return render(request, "reservations/booking.html", {
+                            "guestForm": guestForm,
+                            "bookingForm": bookingForm,
+                            "roomTypeForm": roomTypeForm,
+                            "justBooked": True
+                        })
+                    else:
+                        return render(request, "reservations/error.html", {
+                        "error": "We're sorry, there are no rooms of that type available on those dates. Please try again with a different room type, dates or call our customer support"
+                    }) 
+
+                else:
+                    return render(request, "reservations/error.html", {
+                        "error": "Something has gone wrong with the booking. Please ensure that the reservation dates are correct."
+                    })
+
+            else:
+                return render(request, "reservations/error.html", {
+                    "error": "Something has gone wrong with the booking. Please ensure that the guest information is correct."
+                })
+
+        else:
+            return render(request, "reservations/error.html", {
+                "error": "Something has gone wrong with the booking. Please ensure that the room type information is correct."
+            })
+
+    else:
+        return render(request, "reservations/booking.html", {
+            "guestForm": guestForm,
+            "bookingForm": bookingForm,
+            "roomTypeForm": roomTypeForm,
+        })
 
 def contact(request):
     return render(request, "reservations/contact.html")

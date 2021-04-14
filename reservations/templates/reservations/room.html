@@ -16,16 +16,42 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            initDatepicker();
+            checkInDatepicker();
+        });
+        $(document).ready(function() {
+            checkOutDatepicker();
         });
 
-        function initDatepicker(){
+        function checkInDatepicker(){
             var disabledDates = [];
-            {% for date in reservedDates %}
+            {% for date in disabledCheckInDates %}
                 disabledDates.push("{{ date }}");
             {% endfor %}
-            $('.datepicker').datepicker({
+            $('.checkIn').datepicker({
                 minDate: 0,
+                onSelect: function (selected) {
+                    var selectedDate = new Date(selected);
+                    selectedDate.setDate(selectedDate.getDate() + 1);
+                    $(".checkOut").datepicker("option", "minDate", selectedDate);
+                },
+                beforeShowDay: function(date){
+                    var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+                    return [$.inArray(string, disabledDates) == -1];
+                }
+            })
+        }
+        function checkOutDatepicker(){
+            var disabledDates = [];
+            {% for date in disabledCheckOutDates %}
+                disabledDates.push("{{ date }}");
+            {% endfor %}
+            $('.checkOut').datepicker({
+                minDate: 1,
+                onSelect: function (selected) {
+                    var selectedDate = new Date(selected);
+                    selectedDate.setDate(selectedDate.getDate() - 1);
+                    $(".checkIn").datepicker("option", "maxDate", selectedDate);
+                },
                 beforeShowDay: function(date){
                     var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
                     return [$.inArray(string, disabledDates) == -1];

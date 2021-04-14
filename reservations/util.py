@@ -22,10 +22,15 @@ def get3RandomRoomIds(Room):
 
     return room_ids
 
-def getDateRangeByDay(startDate, endDate):
+def getDateRangeCheckIn(startDate, endDate):
     while startDate < endDate:
         yield startDate.strftime('%Y-%m-%d')
         startDate += timedelta(days=1)
+
+def getDateRangeCheckOut(startDate, endDate):
+    while startDate < endDate:
+        startDate += timedelta(days=1)
+        yield startDate.strftime('%Y-%m-%d')
 
 def checkRoomStatus(Room, Booking):
     activeBooking = Booking.objects.filter(room=Room,  checkInDate__lte=datetime.now().date(), checkOutDate__gt=datetime.now().date())

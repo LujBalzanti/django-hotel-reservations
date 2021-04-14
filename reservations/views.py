@@ -2,7 +2,7 @@ from django.shortcuts import render
 from reservations.models import *
 from django.db.models import Max
 from datetime import datetime
-from reservations.util import get3RandomRoomIds, getDateRangeByDay, checkRoomStatus
+from reservations.util import get3RandomRoomIds, checkRoomStatus, getDateRangeCheckIn, getDateRangeCheckOut
 from django.core.paginator import Paginator
 from reservations.filters import RoomTypeFilter
 from reservations.forms import *
@@ -47,16 +47,22 @@ def room(request, id):
 
                 guestForm = GuestForm()
                 bookingForm = BookingForm()
-                reservedDates = []
+                disabledCheckInDates = []
+                disabledCheckOutDates = []
+
                 for booking in bookings:
-                    for date in getDateRangeByDay(booking.checkInDate, booking.checkOutDate):
-                        reservedDates.append(date)   
+                    for date in getDateRangeCheckIn(booking.checkInDate, booking.checkOutDate):
+                        disabledCheckInDates.append(date) 
+                    for date in getDateRangeCheckOut(booking.checkInDate, booking.checkOutDate):
+                        disabledCheckOutDates.append(date) 
+
                 checkRoomStatus(room, Booking)
                 return render(request, "reservations/room.html", {
                     "room": room,
                     "guestForm": guestForm,
                     "bookingForm": bookingForm,
-                    "reservedDates": reservedDates,
+                    "disabledCheckInDates": disabledCheckInDates,
+                    "disabledCheckOutDates": disabledCheckOutDates,
                     "justBooked": True
                 })                
             else:
@@ -69,10 +75,15 @@ def room(request, id):
             })
         
     else:
-        reservedDates = []
+        disabledCheckInDates = []
+        disabledCheckOutDates = []
+
         for booking in bookings:
-            for date in getDateRangeByDay(booking.checkInDate, booking.checkOutDate):
-                reservedDates.append(date)   
+            for date in getDateRangeCheckIn(booking.checkInDate, booking.checkOutDate):
+                disabledCheckInDates.append(date) 
+            for date in getDateRangeCheckOut(booking.checkInDate, booking.checkOutDate):
+                disabledCheckOutDates.append(date) 
+
         guestForm = GuestForm()
         bookingForm = BookingForm()
         checkRoomStatus(room, Booking)
@@ -80,7 +91,8 @@ def room(request, id):
             "room": room,
             "guestForm": guestForm,
             "bookingForm": bookingForm,
-            "reservedDates": reservedDates,
+            "disabledCheckInDates": disabledCheckInDates,
+            "disabledCheckOutDates": disabledCheckOutDates,
         })
 
 def booking(request):
